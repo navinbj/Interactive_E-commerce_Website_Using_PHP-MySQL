@@ -1,0 +1,71 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: stc392
+ * Date: 21/11/16
+ * Time: 13:36
+ */
+
+require('template/header.phtml') ?>
+    <form name="register" method="post" action="register.php">
+
+        <div class="formTitle">
+            <h3><b>Register Here</b></h3>
+            <p><i>Please note that all fields are mandatory* </i></p>
+        </div>
+        <br/>
+
+        <div class="col-xs-4.5 registerForm">
+            </br>
+            <label>First Name/s:</label>
+            <br/>
+            <input type="text" name="firstname" size="35">
+            <br/>
+
+            <label>Surname:</label>
+            <br/>
+            <input type="text" name="surname"  size="35">
+            <br/>
+
+            <label>Address:</label>
+            <br/>
+            <input type="text" name="address"  size="35">
+            <br/>
+
+            <label>Postcode:</label>
+            <br/>
+            <input type="text" name="postcode"  size="35">
+            <br/>
+
+            <label>Mobile:</label>
+            <br/>
+            <input type="number" name="mobile">
+            <br/>
+
+            <label>Email:</label>
+            <br/>
+            <input type="email" name="email"  size="35">
+            <br/>
+
+            <label>Password:</label>
+            <br/>
+            <input type="password" name="password"  size="35">
+            <br/>
+
+            <label>Confirm Password:</label>
+            <br/>
+            <input type="password" name="confirmPassword"  size="35">
+        </div>
+
+        <br/>
+
+        <div class="col-xs-12 buttons">
+            <input type="submit" value="Register" name="Submit" />
+            <input type="reset" value="Reset" name="Reset" />
+        </div>
+        </br>
+        </br>
+
+    </form>
+
+<?php require('template/footer.phtml') ?>

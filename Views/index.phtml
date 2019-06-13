@@ -1,0 +1,24 @@
+<?php require('template/header.phtml') ?>
+
+<div class="col-xs-7 homePageHeader">
+    <h3>Welcome to our Online Book Rental Website</h3>
+    <p>18 Stevenson Road, The Cresent, Salford, Navin's Wordery Ltd. M12 5GD</p>
+</div>
+
+<br/>
+
+<form name="register" method="post" action="sortByTitle.php">
+    <div class="col-xs-4 searchBooks col-xs-offset-1">
+<!--        <input type="text" name="bookTitle" value="--><?php //echo $_POST['bookName']; ?><!--" placeholder="Search Books Here" size="26">-->
+        <input type="text" name="bookTitle" value="" placeholder="Search Books Here" size="26">
+
+        <input type='submit' value='GO' name='Go'>
+    </div>
+</form>
+
+<div class="col-xs-12 homePageImage">
+    <a href="books.php"><img src="images/bookHP" height="308" width="920" alt="poster"></a>
+</div>
+<br/>
+
+<?php require('template/footer.phtml') ?>

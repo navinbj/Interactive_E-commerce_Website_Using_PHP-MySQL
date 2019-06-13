@@ -1,0 +1,118 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: stc392
+ * Date: 21/11/16
+ * Time: 13:36
+ */
+
+require('template/header.phtml') ; ?>
+
+    <form name="register" method="post" action="sortByPrice.php">
+
+        <div class="formTitle">
+            <h3><b>Search by Price</b></h3>
+            <p><i>Please enter the price in the input box</i></p>
+        </div>
+
+        <br/>
+
+        <div class="col-xs-12">
+            <div class="col-xs-6">
+                <label>Less Than: </label>
+                <input type="number" name="priceMin" size="2">
+                <input type="submit" value="Search" name="SubmitMin" />
+            </div>
+            <div class="col-xs-6">
+                <label>More Than: </label>
+                <input type="number" name="priceMax" size="2">
+                <input type="submit" value="Search" name="SubmitMax" />
+            </div>
+        </div>
+
+        <br/>
+        <br/>
+        <br/>
+
+
+        <?php
+        $priceMin = $_POST['priceMin'];
+        $priceMax = $_POST['priceMax'];
+
+        if (isset($_POST['SubmitMin']))
+        {
+            if (empty($priceMin))
+            {
+                echo "<div class=\"col-xs-12 warning\">";
+                    echo "Please specify the price first!!";
+                echo "</div>";
+            }
+            elseif ($priceMin < 9.99)       //the book with lowest price is £9.99
+            {
+                echo "<div class=\"col-xs-12 warning\">";
+                    echo "Sorry, no books for less than  <b>£$priceMin</b>! <br>";
+                    echo "We sell books from £9.99 to £34.99.";
+                echo "</div>";
+            }
+            else
+            {
+                echo "<div class=\"col-xs-12 message\">";
+                    echo "Searched Results for books with the price less than <b>£$priceMin</b>: <br>";
+                echo "</div>";
+                $bookData = new BooksDataSet();
+                $view->booksDataSet = $booksDataSet->sortBooksByPriceMinimum($priceMin);
+
+                foreach ($view->booksDataSet as $bookData) {
+                    echo "<div class=\"col-xs-3 book\">";
+                        echo '<a href="bookSingle.php?id=' . $bookData->getISBNNo() . '"</a>';
+                        echo '<h4>' . $bookData->getTitle() . '</h4>';
+                        echo '<img src="images/' . $bookData->getImage() . ' "alt="no picture" height="170" width="130" />';
+                        echo "<br>";
+                        echo '<b>Price: </b>' . '£' . $bookData->getPrice() . "<br>";
+                        echo "<br>";
+                    echo "</div>";
+                }
+            }
+        }
+
+
+        if (isset($_POST['SubmitMax']))
+        {
+            if (empty($priceMax))
+            {
+                echo "<div class=\"col-xs-12 warning\">";
+                    echo "Please specify the price first!!";
+                echo "</div>";
+            }
+            elseif ($priceMax > 34.99)      //the book with highest price is £34.99
+            {
+                echo "<div class=\"col-xs-12 warning\">";
+                    echo "Sorry, no books for more than  <b>£$priceMax</b>! <br>";
+                    echo "We sell books from £9.99 to £34.99.";
+                echo "</div>";
+            }
+            else
+            {
+                echo "<div class=\"col-xs-12 message\">";
+                    echo "Searched Results for books with the price more than <b>£$priceMax</b>: <br>";
+                echo "</div>";
+                $bookData = new BooksDataSet();
+                $view->booksDataSet = $booksDataSet->sortBooksByPriceMaximum($priceMax);
+
+                foreach ($view->booksDataSet as $bookData) {
+                    echo "<div class=\"col-xs-3 book\">";
+                        echo '<a href="bookSingle.php?id=' . $bookData->getISBNNo() . '"</a>';
+                        echo '<h4>' . $bookData->getTitle() . '</h4>';
+                        echo '<img src="images/' . $bookData->getImage() . ' "alt="no picture" height="170" width="130" />';
+                        echo "<br>";
+                        echo '<b>Price: </b>' . '£' . $bookData->getPrice() . "<br>";
+                        echo "<br>";
+                    echo "</div>";
+                }
+            }
+        }
+        ?>
+    </form>
+<?php
+require('template/footer.phtml') ;
+?>

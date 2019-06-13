@@ -1,0 +1,70 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: stc392
+ * Date: 21/11/16
+ * Time: 13:36
+ */
+
+require('template/header.phtml') ; ?>
+
+    <form name="sortByAuthor" method="post" action="sortByAuthor.php">
+
+        <div class="formTitle">
+            <h3><b>Search by Author</b></h3>
+            <p><i>Please enter the name of author in the input box</i></p>
+        </div>
+
+        <br/>
+
+        <input type="text" name="author" size="35">
+        <input type="submit" value="Search" name="Submit" />
+
+        <br/>
+        <br/>
+        <br/>
+
+        <?php
+        $booksDataSet = new BooksDataSet();
+        $author = $_POST['author'];
+        $result = $booksDataSet->sortBooksByAuthor($author);
+
+        if (isset($_POST['Submit'])) {
+
+            if (empty($author))
+            {
+                echo "<div class=\"col-xs-12 warning\">";
+                    echo "Please specify the author name first!";
+                echo "</div>";
+            }
+            else if ($result)
+            {
+                echo "<div class=\"col-xs-12 message\">";
+                    echo "Searched Results for <b>$author</b>:";
+                echo "</div>";
+                echo '<br>';
+                echo '<br>';
+
+
+                foreach ($view->booksDataSet as $bookData) {
+                    echo "<div class=\"col-xs-3 book\">";
+                    echo '<a href="bookSingle.php?id=' . $bookData->getISBNNo() . '"</a>';
+                    echo '<h4>' . $bookData->getTitle() . '</h4>';
+                    echo '<img src="images/' . $bookData->getImage() . ' "alt="no picture" height="170" width="130" />';
+                    echo "<br>";
+                    echo '<b>Author: </b>' . $bookData->getAuthor() . "<br>";
+                    echo '<b>Price: </b>' . '£' . $bookData->getPrice() . "<br>";
+                    echo "<br>";
+                    echo "</div>";
+                }
+            }
+            else {
+                echo "<div class=\"col-xs-12 warning\">";
+                    echo "**SORRY: match not found for <b>$author</b>!";
+                echo "</div>";
+            }
+        }
+        ?>
+    </form>
+
+<?php require('template/footer.phtml') ; ?>

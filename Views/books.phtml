@@ -1,0 +1,35 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: stc392
+ * Date: 22/11/16
+ * Time: 14:41
+ */
+
+require('template/header.phtml') ?>
+
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+
+    <h3><b>Books Available At Our Store</b></h3>
+    <p><i>You can select the book/books of your choice and add it to your basket!</i></p>
+    <br/>
+
+    <div class="main">
+    <?php
+    foreach ($view->booksDataSet as $bookData)
+    {
+        echo "<div class=\"col-xs-3 book\">";
+            echo '<a href="bookSingle.php?id=' . $bookData->getISBNNo() . '"</a>';      //creating a GET variable with the value of book ID, and also adding the link to a generic page that displays each book separately when specified the book ID.
+            echo '<h4>' . $bookData->getTitle() . '</h4>';
+            echo '<img src="images/' . $bookData->getImage() . ' "alt="no picture" height="170" width="130" />';
+            echo "<br>";
+            echo '<b>Price: </b>' . '£' . $bookData->getPrice() . "<br>";
+            echo "<br>";
+        echo "</div>";
+    }
+    ?>
+    </div>
+
+</form>
+
+<?php require('template/footer.phtml') ?>

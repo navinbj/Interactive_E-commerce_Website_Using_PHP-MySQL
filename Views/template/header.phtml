@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="/css/my-style.css" rel="stylesheet">
+
+    <title>Server-Side Programming - <?php echo $view->pageTitle; ?></title>
+</head>
+
+<body role=""document">
+
+<div class="container">
+        <div  class="row">
+            <div id="title" class="col-xs-12">
+                <img src="images/BooksLogo2.png" alt="Books Logo" height="100" width="500" />
+                    <div class="pull-right"> <h1><?php echo $view->pageTitle ?> </h1>
+                        <?php
+//                        session_start();
+                        if ($_SESSION['userSession']){
+                            echo "<p><b>Currently logged in as: </b>".$_SESSION['userSession']."</p>";
+                        }
+                        ?>
+                    </div>
+            </div>
+        </div>
+
+
+    <div class="row">
+        <div id="menu" class="col-xs-6 col-sm-3 col-md-2">
+        <ul class="nav navbar_default nav-stacked">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="books.php">Books</a></li>
+
+            <li class="sortBooks">
+                <a href="sortByAuthor.php" class="col-xs-6 col-sm-3 col-md-2">Sort Books</a>
+                <div class = "dropdown">
+                    <a href="sortByAuthor.php">Search by Author</a>
+                    <a href="sortByPrice.php">Search by Price</a>
+                    <a href="sortByGenre.php">Search by Genre</a>
+                </div>
+            </li>
+            <li><a href="basket.php">My Basket</a></li>
+
+            <?php
+            if (!isset($_SESSION['userSession'])) {
+                echo '<li><a href="login.php">Login</a></li>';
+                //echo '<li><a href="register.php">Register</a></li>';
+            }
+            else {
+                echo '<li><a href="myAccount.php">My Account</a></li>';
+                echo '<li><a href="logout.php">Logout</a></li>';
+            }
+            ?>
+        </ul>
+       </div>
+
+    <div id="content" class="col-xs-6 col-sm-9 col-md-10">
+
+
+

@@ -1,0 +1,133 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: stc392
+ * Date: 22/11/16
+ * Time: 14:41
+ */
+
+require('template/header.phtml') ?>
+
+    <?php
+    /**
+     * The HTML form for displaying the information about the selected book in a generic page.
+     */
+    ?>
+    <form action="basket.php?id=<?php echo $view->booksDataSet->getISBNNo() ?>" method="post">
+
+        <div class="row">
+            <div class="col-xs-12 title">
+                <?php echo '<h3>' . ($view->booksDataSet->getTitle()) . '</h3>' ; ?>
+            </div>
+            <div class="col-xs-2">
+                <?php echo '<img src="images/' . $view->booksDataSet->getImage() . ' "alt="no picture" height="185" width="130" />'; ?>
+            </div>
+            <div class="col-xs-5 bookInfo">
+                <?php
+                echo '<b>Author: </b>' . ($view->booksDataSet->getAuthor()). '<br>';
+                echo '<b>Published: </b>' . ($view->booksDataSet->getYearPublished()) . '<br>';
+                echo '<b>Genre: </b>' . ($view->booksDataSet->getGenre()) . '<br>';
+                echo '<b>Price: </b>' . '£' . ($view->booksDataSet->getPrice()) . '<br>';
+
+                $quantity = $view->booksDataSet->getQuantity();
+
+                if ($quantity <= 1) {
+                    echo '<b>Available: </b>' . $quantity . ' copy' . '<br>';
+                }
+                else {
+                    echo '<b>Available: </b>' . $quantity . ' copies' . '<br>';
+                }
+                echo "<br>";
+
+                //for adding the items to basket by selecting the quantity.
+                if ($quantity > 0) {
+                    echo "<label>Select Quantity: </label>";
+                    echo "<select name='quantity'>";
+                        for ($index = 1; $index <= $quantity; $index++) {
+                            echo "<option value=$index>$index</option>";
+                        }
+                    echo '</select>';
+
+                    echo "<div class=' col-xs-12 addToBasket'> 
+                        <input type='submit' value='Add to Basket' name='addToBasket'>
+                    </div>";
+
+                }
+                else {
+                    echo "<label>Currently Out of Stock </label>";
+                }
+                ?>
+
+            </div>
+
+            <div class="col-xs-12">
+                <br/>
+                <?php echo '<b>Description: </b>' . ($view->booksDataSet->getDescription()); ?>
+            </div>
+        </div>
+    </form>
+
+
+    <?php
+    /**
+     * The HTML form for a customer to post comment about the book.
+     */
+    ?>
+    <form action="bookSingle.php?id=<?php echo $view->booksDataSet->getISBNNo() ?>" method="post">
+        <div class="booksComments col-xs-9">
+            <?php
+            echo '<h4><b>Tell us what you think!</b></h4>';
+            echo "<div class=' col-xs-8 inputComment'> 
+                <textarea name='comment' id='comment' placeholder='Please enter your comment here..' cols='80' rows='5'></textarea>
+            </div>";
+
+            echo "<div class='col-xs-6 submitComment'> 
+                <input type='submit' value='SUBMIT' name ='submitComment'>
+            </div>";
+            ?>
+        </div>
+    </form>
+
+
+    <?php
+    /**
+     * The HTML form for displaying the comments information from the database submitted by the customers..
+     */
+    ?>
+    <form action="bookSingle.php?id=<?php echo $view->booksDataSet->getISBNNo() ?>" method="post">
+        <div class="submittedComments col-xs-9">
+            <?php
+            echo '<h4><b>Submitted Comments</b></h4>';
+
+            foreach ($view->commentsDataSet as $commentsData) {
+
+                $customerID = $commentsData->getCustomerID();
+                $customerDataSet = new CustomersDataSet();
+                $customerSingle = $customerDataSet->fetchCustomerDetails($customerID);
+
+                echo "<form action=\"bookSingle.php\" method=\"post\">";
+                    echo '<input type="hidden" name="commentID" value="' . $commentsData->getCommentID(). '"/>';
+                    echo "<div class=\"col-xs-12 commentInfo\">";
+                        echo '<p>' . $commentsData->getComment() . '</p>';
+
+                        echo "<div class=\"commenter\">";
+                            $customerEmail = $customerSingle[0]->getEmail();
+                            echo  'By: ' . $customerEmail;
+                            echo "<br>";
+                            echo $commentsData->getDateTime();
+
+                            $loggedInCustomer = $_SESSION['userSession'];
+                            if ($loggedInCustomer == $customerEmail) {
+                                echo "<div class= deleteComment'> 
+                                    <input type='submit' value='Delete' name='deleteComment'>
+                                </div>";
+                            }
+
+                        echo "</div>";
+                    echo "</div>";
+                echo "</form>";
+            }
+            ?>
+        </div>
+    </form>
+<?php require('template/footer.phtml') ?>

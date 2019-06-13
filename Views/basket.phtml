@@ -1,0 +1,152 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: stc392
+ * Date: 22/11/16
+ * Time: 14:41
+ */
+
+require('template/header.phtml') ?>
+
+    <form action="basket.php" method="post">
+
+        <h3><b>Shopping Basket: </b></h3>
+
+        <?php
+        $cusID = '';
+        if ($_SESSION['cusIDSession']) {
+            $cusID = $_SESSION['cusIDSession'];
+        }
+        $result = $basketDataSet->fetchBasketSingle($cusID);
+
+
+        if (!$_SESSION['userSession']) {                //if the user is not logged in, he cannot add items or view items of his basket if there's any.
+            echo "<div class=\"col-xs-12 warning\">";
+                echo "Your basket is currently empty!";
+                echo "<br>";
+                echo "FYI, You need to be logged in in order to add items or view items of your basket.";
+            echo "</div>";
+        }
+        else if(!$result) {
+            echo "<div class=\"col-xs-12 warning\">";
+                echo "OOPS! ITS EMPTY! <br>";
+                echo "Looks like you haven't added anything yet!";
+            echo "</div>";
+        }
+        else
+        {
+            echo '<h4>' . $_SESSION['userSession'] . '</h4>' . "<br>";
+
+            echo'<div class="col-xs-12">';
+                echo '<h5><b>Your Items </b> (Customer ID: ' . $_SESSION['cusIDSession'] . ')' . '</h5>';
+            echo '</div>';
+
+            $basketDataSet = new BasketDataSet();
+            $grandTotal = 0;        //initialising the variable to zero which will hold the total price of items in the basket.
+            $bookTitle = '';
+            $bookImage = '';
+            $bookID = '';
+            $quantity = 0;
+            $priceQty1 = 0;
+            $totalPrice = 0;
+
+            echo '<div class="col-xs-7 allItems col-xs-offset-1">';
+                foreach ($view->basketDataSet as $basketData)
+                {
+                    $iSBNNo = $basketData->getISBNNo();
+                    $bookDataSet = new BooksDataSet();
+                    $bookSingle = $bookDataSet->fetchBookSingle($iSBNNo);   //storing the array of book IDS into a variable.
+
+                    echo "<form action=\"basket.php\" method=\"post\">";
+
+                        echo "<div class=\"col-xs-12 basketItem\">";
+
+                            echo "<div class=\"col-xs-12 basketItemInfo\">";
+
+                                echo "<div class=\"col-xs-12 title\">";
+                                    $bookTitle = $bookSingle[0]->getTitle();
+                                    echo '<h3>' . $bookTitle . '</h3>';     //echoing the title of one particular item in an array.
+                                echo "</div>";
+
+                                echo "<div class=\"col-xs-5\">";
+                                    $bookImage = $bookSingle[0]->getImage();
+                                    echo '<img src="images/' . $bookImage . ' "alt="no picture" height="180" width="150" />';
+                                echo "</div>";
+
+                                echo "<div class=\"col-xs-6 bookID\">";
+                                    $bookID = $bookSingle[0]->getISBNNo();
+                                    echo '<h5><b>Book ID: </b> ' . $bookSingle[0]->getISBNNo() . '</h5>';
+                                    echo '<input type="hidden" name="bookID" value="' . $bookSingle[0]->getISBNNo(). '"/>';
+                                echo "</div>";
+
+                                echo "<div class=\"col-xs-6 author\">";
+                                    echo '<h5><b>Author:  </b> ' . $bookSingle[0]->getAuthor() . '</h5>';
+                                echo "</div>";
+
+                                echo "<div class=\"col-xs-4 quantity\">";
+                                    $quantity = $basketData->getQuantity();
+                                    echo '<h5><b>Quantity: </b> ' . $quantity . '</h5>';
+                                echo "</div>";
+
+                                echo "<div class=\"col-xs-6 priceQty1\">";
+                                    $priceQty1 = $bookSingle[0]->getPrice();
+                                    echo '<h5><b>Price per Qty: </b> £' . $priceQty1 . '</h5>';
+                                echo "</div>";
+
+                                $totalPrice = $bookSingle[0]->getPrice() * $basketData->getQuantity();
+                                echo "<div class=\"col-xs-6 priceQtyAll\">";
+                                    echo '<h5><b>Total Price: </b> £' . $totalPrice . '</h5>';
+                                echo '</div>';
+                            echo "</div>";
+
+                            $grandTotal = $grandTotal+$bookSingle[0]->getPrice() * $basketData->getQuantity();
+                            $amount= $bookSingle[0]->getQuantity();
+
+                            echo "<div class=\"col-xs-9 quantityUpdate\">";
+                                echo "<label>Change Quantity: </label>";
+                                echo "<select name='quantityUpdate'>";
+                                    for ($index = 1; $index <= $amount; $index++) {
+                                        echo "<option value=$index>$index</option>";
+                                    }
+                                echo '</select>';
+                                echo "<input type='submit' value='Update' name='updateQuantity'>";
+                            echo "</div>";
+
+                            echo "<div class=\"col-xs-3 deleteButton\">";
+                                echo "<input type='submit' value='Delete Item' name='removeItem'>";
+                            echo "</div>";
+                        echo '</div>';
+                    echo "</form>";
+                }
+            echo '</div>';
+
+            /**
+             * form for displaying the total price for items added in the basket.
+             */
+            echo "<form action=\"basket.php\" method=\"post\">";
+                echo '<div class="col-xs-3 operations">';
+                    echo "<div class=\"col-xs-12 confirm\">";
+                        echo '<h3><u>Confirmation</u></h3>' ;
+                    echo "</div>";
+
+                    echo "<div class=\"col-xs-12 price\">";
+                        echo '<h4><b>' . "Total Price: £" . $grandTotal . '</b></h4>' ;
+                        echo '<input type="hidden" name="grandTotal" value="' . $grandTotal. '"/>';
+                    echo "</div>";
+
+                    echo "<div class=\"col-xs-12 clearBasket\">";
+                        echo "<br>";
+                        echo "<input type='submit' value='Clear Basket' name='clearBasket'>";
+                    echo "</div>";
+
+                    echo "<div class=\"col-xs-12 checkout\">";
+                        echo "<input type='submit' value='Proceed to checkout' name='checkout'>";
+                    echo "</div>";
+                echo '</div>';
+            echo '</form>';
+        }
+        ?>
+
+</form>
+
+<?php require('template/footer.phtml') ?>

@@ -1,0 +1,34 @@
+<?php require('template/header.phtml') ?>
+
+    <form name="login" action="login.php" method="post">
+
+        <div class="formTitle">
+            <h3><b>Login Here</b></h3>
+            <p><i>Please use the email which you used to register to us in the username field.</i></p>
+        </div>
+        <br/>
+
+        <div class="loginForm">
+
+            <label>Username:</label>
+            <input type="email" name="username" value="" required/>
+            <br/>
+
+            <label>Password:</label>
+            <input type="password" name="password" value="" required/>
+        </div>
+
+        <div class="buttons">
+            <br/>
+            <input type="submit" value="Login" name="login" />
+            <input type="reset" value="Reset" name="Reset" />
+        </div>
+
+        <br/>
+        <br/>
+
+        <p>Don't have a login, <a href="register.php">Click here to register</a></p>
+
+    </form>
+
+<?php require('template/footer.phtml') ?>

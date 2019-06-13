@@ -1,0 +1,371 @@
+#title {
+    margin-top: 12px;
+    background-color: #fff;
+    color: #000;
+
+}
+#menu {
+    border-top: solid 6px #f00;
+    background-color: #f00;
+    color: #fff;
+    height: 400px;
+}
+
+#menu a {
+    background-color: #f00;
+    color: #fff;
+    text-decoration: none;
+    display: block;
+}
+#menu a:hover {
+    background-color: #2a6496;
+    text-decoration:underline;
+    display: block;
+}
+
+#content {
+    background-color: #f7f7f7;
+    border-top: solid 6px #f00;
+
+}
+
+#title{
+    padding-left: 0px;
+    padding-bottom: 5px;
+
+
+}
+#footer {
+    margin-top: 20px;
+    text-align: center;
+    background-color: #a94442;
+    color: #fff;
+}
+
+.info {
+    width: 400px;
+    position: relative;
+    float: right;
+    clear: right;
+    right: 400px;
+    line-height: 1;
+}
+
+article h4 {
+    color: #c7254e;
+}
+
+. table table-hover h4 {
+    color: #c7254e;
+}
+
+
+
+.title {
+    color: #c7254e;
+}
+
+.bookInfo {
+    line-height: 1.5;
+}
+
+.registerForm {
+    border-style: dotted;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    border-color: #999999;
+    background-color: #fcf8e3;
+}
+
+.buttons {
+    color: #843534;
+}
+
+.formTitle p {
+    color: red;
+}
+
+.loginForm {
+    background-color: #fcf8e3;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-style: dotted;
+    border-color: #999999;
+}
+
+.homePageHeader {
+    color: #2d6ca2;
+}
+
+.book {
+    padding-top: 10px;
+    border-color: seashell;
+    background-color: mistyrose;
+    border-style: groove;
+
+}
+
+.errorMsg {
+    color: red;
+    padding: 10px;
+}
+
+.book h4 {
+    color: #c7254e;
+}
+
+.addToBasket {
+    color: darkred;
+}
+
+.clearBasket {
+    color: darkred;
+}
+
+.checkout input {
+    color: darkblue;
+    background-color: sandybrown ;
+    border-color: #a94442;
+    border-style: solid;
+
+}
+
+.deleteItem {
+    color: darkred;
+}
+
+.pull-right p{
+    color: lightseagreen;
+}
+
+label {
+    color: indigo;
+}
+
+input[name=mobile]{
+    width: 305px;
+}
+
+.basketItemInfo{
+    border-style: solid;
+    margin-bottom: 1%;
+    margin-top: 3%;
+    background-color: #dff0d8;
+    padding-bottom: 4%;
+    border-color: darkgray;
+}
+
+.message {
+    background-color: #67b168;
+}
+
+.success {
+    background-color: #67b168;
+}
+
+.warning {
+    background-color: yellow;
+}
+
+.searchBooks {
+    color: firebrick;
+}
+
+.quantityUpdate input {
+    color: darkviolet;
+}
+
+.deleteButton input {
+    color: darkred;
+    font-weight: bold;
+
+}
+
+.allItems {
+    border-color: #080808;
+}
+
+.confirm h3{
+    color: blue;
+    font-weight: bold;
+}
+.bookID, .quantity, .priceQty1, .priceQtyAll {
+    line-height: 1.5;
+}
+
+.customerInfo {
+    padding: 10px;
+    border-style: solid;
+    background-color: seashell;
+    /*line-height: 300%;*/
+}
+
+.resetPassword p {
+    color: navy;
+}
+
+input[name=reset] {
+    color: darkred;
+}
+
+.basketItem {
+    border-style: solid;
+    margin: 1%;
+    background-color: lightgrey;
+    padding-bottom: 1%;
+    border-color: #737373;
+}
+
+input[name=bookID] {
+    color: darkred;
+}
+
+/*input[name=firstname] {*/
+    /*height: 1%;*/
+/*}*/
+
+.memID {
+    font-size: 135%;
+    color: #843534;
+    text-align: center;
+}
+
+.pushright{
+    margin-left: 12%;
+    width: 45%;
+}
+
+.changeUserInfo {
+    background-color: #e1edf7;
+    border-color: #adadad;
+    border-style: solid;
+    margin-top: 1%;
+    padding: 10px;
+}
+
+.changeUserInfo input[type=submit] {
+    color: white;
+    background-color: darkgreen ;
+    border-color: #2b542c;
+    border-style: solid;
+}
+
+.booksComments h4 {
+    color: #3e8f3e;
+}
+
+.booksComments {
+    font-family: "Courier New";
+    margin-top: 5%;
+    border-style: solid;
+    border-color: #3e8f3e;
+    padding-left: 10px; padding-right: 10px;
+    padding-bottom: 10px;
+    border-width: 2px;
+    border-radius: 5px;
+}
+
+input[name="comment"] {
+    width: 50%;  
+    list-style-type: square;
+}
+
+.inputComment {
+    margin-bottom: 1%;
+
+}
+
+input[name="submitComment"] {
+    color: white;
+    background-color: darkgreen ;
+    border-color: #2b542c;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+textarea[name="comment"] {
+    border-color: #3e8f3e;
+    border-style: solid;
+    border-radius: 2px;
+    border-width: thin;
+}
+
+.submittedComments {
+    margin-top: 4%;
+
+}
+
+.submittedComments h4 {
+    color: black;
+    font-family: "Courier New";
+    border-color: #bce8f1;
+    border-style: solid;
+    background-color: #bce8f1;
+    border-radius: 5px;
+}
+
+.commentInfo {
+    border-style: ridge;
+    border-color: lavender;
+    border-width: 2px;
+    margin-bottom: 3px;
+    background-color: lavender;
+}
+
+.commenter {
+    color: #2aabd2;
+}
+
+.homePageHeader p {
+    color: #888888;
+    font-family: "Ubuntu Light";
+    font-weight: bold;
+    font-style: italic;
+}
+
+.itemPurchasedMsg {
+    background-color: #67b168;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.purchaseWarning {
+    background-color: yellow;
+    border-style: solid;
+    border-width: 1px;
+}
+
+input[name="deleteComment"] {
+    color: purple;
+    margin-bottom: 2px;
+}
+
+.main {
+    margin-bottom: 10%;
+}
+
+.linkToOdrHis p {
+    margin-top: 20%;
+    font-weight: bold;
+    font-size: 150%;
+    color: #ac2925;
+}
+
+.dateTime {
+    color: purple;
+    margin-top: 2%;
+    margin-bottom: 1%;
+}
+
+.orderedItem {
+    border-style: solid;
+    border-color: #46b8da;
+    margin-bottom: 2px;
+    background-color: #d9edf7;
+    border-width: 1px;
+}
+
+.image {
+    margin-bottom: 2%;
+}

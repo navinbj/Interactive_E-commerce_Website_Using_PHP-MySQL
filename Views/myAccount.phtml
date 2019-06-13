@@ -1,0 +1,73 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: stc392
+ * Date: 22/11/16
+ * Time: 14:41
+ */
+
+require('template/header.phtml') ?>
+
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" xmlns="http://www.w3.org/1999/html">
+
+        <h3><b>Your Account Details: </b></h3>
+        <br/>
+
+
+        <div class="col-xs-10 customerInfo col-xs-offset-1">
+            <?php
+                foreach ($view->customerDataSet as $customerData) {
+
+                    echo "<div class=\"memID\">";
+                        echo '<b>Membership ID: </b>' . $customerData->getCustomerID();
+                    echo '</div>';
+
+                    echo "<div class=\"col-xs-12 changeUserInfo\">";
+                        echo '<b>First Name: </b>' . $customerData->getFirstname();
+                        echo "<br>";
+
+                        echo '<b>Surname: </b>' . $customerData->getSurname();
+                        echo "<br>";
+
+                        echo '<b>Address: </b>' . $customerData->getAddress();
+                        echo '<input class="pushright" type="text" name="address"  placeholder="Change my address"/>';
+                        echo '<input type="submit" name="saveAddress" value="Update"/>';
+                        echo "<br>";
+
+                        echo '<b>Postcode: </b>' . $customerData->getPostcode();
+                        echo '<input class="pushright" type="text" name="postcode"  placeholder="Change my postcode"/>';
+                        echo '<input type="submit" name="savePostcode" value="Update"/>';
+                        echo "<br>";
+
+                        echo '<b>Mobile: </b>' . $customerData->getMobile();
+                        echo '<input class="pushright" type="number" name="mobileNo"  placeholder="Change my mobile number"/>';
+                        echo '<input type="submit" name="saveMobile" value="Update"/>';
+                        echo "<br>";
+
+                        echo '<b>Email: </b>' . $customerData->getEmail();
+                        echo '<input class="pushright" type="email" name="email"  placeholder="Change my email"/>';
+                        echo '<input type="submit" name="saveEmail" value="Update"/>';
+                        echo "<br>";
+                    echo '</div>';
+                }
+            ?>
+        </div>
+
+        <div class="col-xs-7 col-xs-offset-1 resetPassword">
+            <br/>
+            <p><b>Reset Your Password Here: </b></p>
+            <input type="password" name="currentPassword" placeholder="Enter Current Password">
+            <br/>
+            <input type="password" name="newPassword" placeholder="Enter new password">
+            <br/>
+            <input type="password" name="confirmNewPassword" placeholder="Enter password again">
+            <br/>
+            <input type="submit" value="Reset" name="reset">
+        </div>
+
+        <div class="col-xs-4 linkToOdrHis">
+            <p><a href="orderHistory.php">See My Order History</a></p>
+        </div>
+    </form>
+
+<?php require('template/footer.phtml') ?>

@@ -1,0 +1,60 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: stc392
+ * Date: 22/11/16
+ * Time: 14:41
+ */
+
+require('template/header.phtml') ?>
+
+    <form action="orderHistory.php" method="post">
+        <h3><b>Your Order History: </b></h3>
+
+        <?php
+        $customerID = '';
+        if (isset($_SESSION['cusIDSession']))
+        {
+            $customerID = $_SESSION['cusIDSession'];
+        }
+        $orderHistoryDataSet = new OrderHistoryDataSet();
+        $result = $orderHistoryDataSet->fetchOrderHistory($customerID);
+
+        if (!$result) {
+            echo "<div class=\"col-xs-12 warning\">";
+                echo "OOPS! ITS EMPTY! <br>";
+                echo "Looks like you haven't purchased anything yet!";
+            echo "</div>";
+        }
+        else {
+            echo '<div class="col-xs-12 orderHistoryInfo">';
+            foreach ($view->orderHistoryDataSet as $orderHistoryData) {
+                $iSBNNo = $orderHistoryData->getISBNNo();
+                $bookDataSet = new BooksDataSet();
+                $bookSingle = $bookDataSet->fetchBookSingle($iSBNNo);   //storing the array of book IDS into a variable.
+
+                echo "<div class=\"col-xs-10 orderedItem\">";
+                echo "<div class=\"col-xs-12 dateTime\">";
+                echo "<h4><b>Purchased on: </b>" . $orderHistoryData->getDateTime() . "</h4>";
+                echo "</div>";
+
+                echo "<div class=\"col-xs-9 orderedItemInfo\">";
+                echo "<p><b>Book ID: </b>" . $orderHistoryData->getISBNNo() . "</p>";     //echoing the title of one particular item in an array.
+                echo "<P><b>Title: </b>" . $bookSingle[0]->getTitle() . "</P>";     //echoing the title of one particular item in an array.
+                echo '<p><b>Quantity: </b> ' . $orderHistoryData->getQuantity() . "</P>";
+                echo '<p><b>Price per Qty: </b>£' . $orderHistoryData->getPricePerQty() . "</P>";
+                echo '<p><b>Total Price: </b>£' . $orderHistoryData->getTotalPrice() . "</P>";
+                echo "</div>";
+
+                echo "<div class=\"col-xs-3 image pull-left\">";
+                $bookImage = $bookSingle[0]->getImage();
+                echo '<img src="images/' . $bookImage . ' "alt="no picture" height="150" width="120" />';
+                echo "</div>";
+
+                echo '</div>';
+            }
+            echo '</div>';
+        }
+        ?>
+    </form>
+<?php require('template/footer.phtml') ; ?>
